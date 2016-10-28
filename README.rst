@@ -81,13 +81,26 @@ Sample makefile compatible with ``pymake``:
 
 .. code:: sh
 
+    PY=python -m py_compile
+    .PHONY:
+    	all
+    	test
+        install
+        compile
     all:
-    	@make test
+    	@+make test
     	@make install
     test:
     	nosetest
     install:
     	python setup.py install
+    compile:
+    	$(PY) test.py
+    circle:
+    	# of life
+    	circle
+    empty:
+    	# this is a comment
 
 
 Documentation
@@ -122,8 +135,8 @@ Citation information: |DOI-URI|
 Authors
 -------
 
--  Casper da Costa-Luis (casperdcl)*
--  Stephen Larroque (lrq3000)*
+-  Casper da Costa-Luis (casperdcl)
+-  Stephen Larroque (lrq3000)
 
 |README-Hits| (Since 28 Oct 2016)
 

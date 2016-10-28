@@ -16,6 +16,8 @@ __all__ = ['PymakeTypeError', 'PymakeKeyError',
 
 
 RE_MAKE_CMD = re.compile('^\t(@\+?)(make)?', flags=re.M)
+RE_MACRO_DEF = re.compile(r"^(\S+)\s*\:?\=\s*(.*?)$", flags=re.M)
+RE_MACRO = re.compile(r"\$\(\s*\S+\s*\)", flags=re.M)
 
 
 class PymakeTypeError(TypeError):
@@ -43,6 +45,20 @@ def parse_makefile_aliases(filepath):
     ini_str = '[root]\n'
     with io.open(filepath, mode='r') as fd:
         ini_str = ini_str + RE_MAKE_CMD.sub('\t', fd.read())
+
+    macros = dict(RE_MACRO_DEF.findall(ini_str))
+    # allow finite amount of nesting
+    for _ in range(99):
+        for (m, expr) in macros.iteritems():
+            ini_str = re.sub(r"\$\(" + m + "\)", expr, ini_str, flags=re.M)
+        if not RE_MACRO.match(ini_str):
+            # remove macro definitions from rest of parsing
+            ini_str = RE_MACRO_DEF.sub("", ini_str)
+            break
+    else:
+        raise PymakeKeyError("No substitution for macros: " +
+                             str(set(RE_MACRO.findall(ini_str))))
+
     ini_fp = StringIO.StringIO(ini_str)
     # Parse using ConfigParser
     config = ConfigParser.RawConfigParser()

@@ -1,10 +1,11 @@
+IPY=python -c
 .PHONY:
 	hello
 	err
 
 hello:
 	# this is a comment
-	python -c "print('hello world')"
+	$(IPY) "print('hello world')"
 
 err:
 	keyboardmashitalltogetherthisshouldnotrunotherwiseunittestswillfail
