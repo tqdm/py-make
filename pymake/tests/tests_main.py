@@ -47,6 +47,15 @@ def test_main():
     else:
         raise PymakeKeyError('foo')
 
+    """ Test various targets """
+    for trg in ['circle', 'empty', 'one']:
+        sys.argv = ['', '-s', '-f', fname, trg]
+        main()
+
+    """ Test --print-data-base with errors """
+    sys.argv = ['', '-s', '-p', '-f', fname, 'err']
+    main()
+
     """ Test --just-print with errors """
     sys.argv = ['', '-s', '-n', '-f', fname, 'err']
     main()

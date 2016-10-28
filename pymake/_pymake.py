@@ -61,9 +61,12 @@ def parse_makefile_aliases(filepath):
 
     # -- Extracting commands for each alias
     commands = {}
+    default_alias = ''
     for alias in aliases:
         if alias.lower() in ['.phony']:
             continue
+        if not default_alias:
+            default_alias = alias
         # strip the first line return, and then split by any line return
         commands[alias] = config.get('root', alias).lstrip('\n').split('\n')
 
@@ -112,7 +115,7 @@ def parse_makefile_aliases(filepath):
     #     commands['make_'+alias] = commands[alias]
     #     del commands[alias]
 
-    return commands, aliases[0]
+    return commands, default_alias
 
 
 def execute_makefile_commands(

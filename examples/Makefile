@@ -1,4 +1,27 @@
+.PHONY:
+	hello
+	err
+
 hello:
-	python -c "from __future__ import print_function; print('hello world')"
+	# this is a comment
+	python -c "print('hello world')"
+
 err:
 	keyboardmashitalltogetherthisshouldnotrunotherwiseunittestswillfail
+
+circle:
+	# of life
+	circle
+
+empty:
+	# head
+
+one:
+	@make two
+
+two:
+	@+make empty
+	@+make three
+
+three:
+	@+make circle
