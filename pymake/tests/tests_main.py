@@ -2,6 +2,7 @@ import sys
 import subprocess
 import os
 from pymake import main, PymakeKeyError
+from copy import deepcopy
 
 
 # def test_subprocess()
@@ -17,10 +18,10 @@ def _sh(*cmd, **kwargs):
                             **kwargs).communicate()[0].decode('utf-8')
 
 
-def repeat(fn, n, *args):
-    a = args
+def repeat(fn, n, arg):
+    a = arg
     for _ in range(n):
-        a = fn(*a)
+        a = fn(a)
     return a
 
 
@@ -28,12 +29,11 @@ def repeat(fn, n, *args):
 def test_main():
     """ Test execution """
 
-    fname = path.join(path.abspath(repeat(os.path.dirname, 3, __file__)),
-                      "examples", "Makefile")
+    fname = os.path.join(os.path.abspath(repeat(os.path.dirname, 3, __file__)),
+                         "examples", "Makefile")
     res = _sh(sys.executable, '-c',
-              'from pymake import main; import sys; '
-              'sys.argv = ["", "-f", "{}"]'.format(fname)
-              'main()',
+              'from pymake import main; import sys; ' +
+              'sys.argv = ["", "-f", "' + fname + '"]; main()',
               stderr=subprocess.STDOUT)
 
     # actual test:
@@ -49,7 +49,7 @@ def test_main():
     sys.argv = ['', '-f', fname]
     main()
 
-    sys.argv = ['', '-f', fname, 'hel']
+    sys.argv = ['', '-f', fname, 'foo']
     try:
         main()
     except PymakeKeyError as e:
@@ -58,7 +58,7 @@ def test_main():
     else:
         raise PymakeKeyError('foo')
 
-    sys.argv = ['', '-s', '-f', fname, 'hel']
+    sys.argv = ['', '-s', '-f', fname, 'hello']
     main()
 
     for i in ('-h', '--help', '-v', '--version'):

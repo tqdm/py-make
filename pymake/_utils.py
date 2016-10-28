@@ -1,3 +1,5 @@
+__all__ = ["ConfigParser", "StringIO", "_sh"]
+
 if True:  # pragma: no cover
     try:
         import ConfigParser

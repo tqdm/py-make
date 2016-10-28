@@ -3,12 +3,11 @@ pymake helpers
 """
 from __future__ import absolute_import
 # import compatibility functions and utilities
-from ._utils import _unich, _unicode, _sh, ConfigParser, StringIO
+from ._utils import ConfigParser, StringIO
 import io
 import re
 from subprocess import check_call
 import shlex
-import re
 
 
 __author__ = {"github.com/": ["casperdcl", "lrq3000"]}

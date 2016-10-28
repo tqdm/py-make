@@ -166,9 +166,9 @@ with open('README.rst', mode='r', encoding='utf-8') as fd:
     README_rst = fd.read()
 
 setup(
-    name='pymake',
+    name='py-make',
     version=__version__,
-    description='A Fast, Extensible Progress Meter',
+    description='Makefile execution powered by pure Python',
     license='MPLv2.0, MIT Licenses',
     author='Casper da Costa-Luis',
     author_email='casper.dcl@physics.org',
@@ -177,6 +177,7 @@ setup(
     maintainer_email='python.tqdm@gmail.com',
     platforms=['any'],
     packages=['pymake'],
+    install_requires=['docopt'],
     entry_points={'console_scripts': ['pymake=pymake._main:main'], },
     long_description=README_rst,
     classifiers=[

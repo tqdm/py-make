@@ -1,7 +1,7 @@
 |Logo|
 
-pymake
-======
+py-make
+=======
 
 |PyPI-Status| |PyPI-Versions|
 
@@ -38,7 +38,7 @@ Latest PyPI stable release
 
 .. code:: sh
 
-    pip install pymake
+    pip install py-make
 
 Latest development release on github
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,7 +49,7 @@ Pull and install in the current directory:
 
 .. code:: sh
 
-    pip install -e git+https://github.com/tqdm/pymake.git@master#egg=pymake
+    pip install -e git+https://github.com/tqdm/py-make.git@master#egg=py-make
 
 
 Changelog
@@ -57,7 +57,7 @@ Changelog
 
 The list of all changes is available either on GitHub's Releases:
 |GitHub-Status| or on crawlers such as
-`allmychanges.com <https://allmychanges.com/p/python/pymake/>`_.
+`allmychanges.com <https://allmychanges.com/p/python/py-make/>`_.
 
 
 Usage
@@ -100,11 +100,11 @@ Documentation
 Contributions
 -------------
 
-All source code is hosted on `GitHub <https://github.com/tqdm/pymake>`__.
+All source code is hosted on `GitHub <https://github.com/tqdm/py-make>`__.
 Contributions are welcome.
 
 See the
-`CONTRIBUTE <https://raw.githubusercontent.com/tqdm/pymake/master/CONTRIBUTE>`__
+`CONTRIBUTE <https://raw.githubusercontent.com/tqdm/py-make/master/CONTRIBUTE>`__
 file for more information.
 
 
@@ -124,31 +124,28 @@ Authors
 
 |README-Hits| (Since 28 Oct 2016)
 
-.. |Logo| image:: https://raw.githubusercontent.com/tqdm/pymake/master/logo.png
-.. |Screenshot| image:: https://raw.githubusercontent.com/tqdm/pymake/master/images/pymake.gif
-.. |Build-Status| image:: https://travis-ci.org/tqdm/pymake.svg?branch=master
-   :target: https://travis-ci.org/tqdm/pymake
-.. |Coverage-Status| image:: https://coveralls.io/repos/tqdm/pymake/badge.svg
-   :target: https://coveralls.io/r/tqdm/pymake
-.. |Branch-Coverage-Status| image:: https://codecov.io/github/tqdm/pymake/coverage.svg?branch=master
-   :target: https://codecov.io/github/tqdm/pymake?branch=master
-.. |GitHub-Status| image:: https://img.shields.io/github/tag/tqdm/pymake.svg?maxAge=2592000
-   :target: https://github.com/tqdm/pymake/releases
-.. |GitHub-Forks| image:: https://img.shields.io/github/forks/tqdm/pymake.svg
-   :target: https://github.com/tqdm/pymake/network
-.. |GitHub-Stars| image:: https://img.shields.io/github/stars/tqdm/pymake.svg
-   :target: https://github.com/tqdm/pymake/stargazers
-.. |PyPI-Status| image:: https://img.shields.io/pypi/v/pymake.svg
-   :target: https://pypi.python.org/pypi/pymake
-.. |PyPI-Downloads| image:: https://img.shields.io/pypi/dm/pymake.svg
-   :target: https://pypi.python.org/pypi/pymake
-.. |PyPI-Versions| image:: https://img.shields.io/pypi/pyversions/pymake.svg
-   :target: https://pypi.python.org/pypi/pymake
-.. |LICENCE| image:: https://img.shields.io/pypi/l/pymake.svg
-   :target: https://raw.githubusercontent.com/tqdm/pymake/master/LICENCE
-.. |DOI-URI| image:: https://zenodo.org/badge/21637/tqdm/pymake.svg
-   :target: https://zenodo.org/badge/latestdoi/21637/tqdm/pymake
-.. |Screenshot-Jupyter1| image:: https://raw.githubusercontent.com/tqdm/pymake/master/images/pymake-jupyter-1.gif
-.. |Screenshot-Jupyter2| image:: https://raw.githubusercontent.com/tqdm/pymake/master/images/pymake-jupyter-2.gif
-.. |Screenshot-Jupyter3| image:: https://raw.githubusercontent.com/tqdm/pymake/master/images/pymake-jupyter-3.gif
-.. |README-Hits| image:: http://hitt.herokuapp.com/tqdm/pymake.svg
+.. |Logo| image:: https://raw.githubusercontent.com/tqdm/py-make/master/logo.png
+.. |Screenshot| image:: https://raw.githubusercontent.com/tqdm/py-make/master/images/py-make.gif
+.. |Build-Status| image:: https://travis-ci.org/tqdm/py-make.svg?branch=master
+   :target: https://travis-ci.org/tqdm/py-make
+.. |Coverage-Status| image:: https://coveralls.io/repos/tqdm/py-make/badge.svg
+   :target: https://coveralls.io/r/tqdm/py-make
+.. |Branch-Coverage-Status| image:: https://codecov.io/github/tqdm/py-make/coverage.svg?branch=master
+   :target: https://codecov.io/github/tqdm/py-make?branch=master
+.. |GitHub-Status| image:: https://img.shields.io/github/tag/tqdm/py-make.svg?maxAge=2592000
+   :target: https://github.com/tqdm/py-make/releases
+.. |GitHub-Forks| image:: https://img.shields.io/github/forks/tqdm/py-make.svg
+   :target: https://github.com/tqdm/py-make/network
+.. |GitHub-Stars| image:: https://img.shields.io/github/stars/tqdm/py-make.svg
+   :target: https://github.com/tqdm/py-make/stargazers
+.. |PyPI-Status| image:: https://img.shields.io/pypi/v/py-make.svg
+   :target: https://pypi.python.org/pypi/py-make
+.. |PyPI-Downloads| image:: https://img.shields.io/pypi/dm/py-make.svg
+   :target: https://pypi.python.org/pypi/py-make
+.. |PyPI-Versions| image:: https://img.shields.io/pypi/pyversions/py-make.svg
+   :target: https://pypi.python.org/pypi/py-make
+.. |LICENCE| image:: https://img.shields.io/pypi/l/py-make.svg
+   :target: https://raw.githubusercontent.com/tqdm/py-make/master/LICENCE
+.. |DOI-URI| image:: https://zenodo.org/badge/21637/tqdm/py-make.svg
+   :target: https://zenodo.org/badge/latestdoi/21637/tqdm/py-make
+.. |README-Hits| image:: http://hitt.herokuapp.com/pymake/pymake.svg

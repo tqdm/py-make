@@ -15,7 +15,7 @@ Arguments:
 from __future__ import absolute_import
 from __future__ import print_function
 from ._pymake import parse_makefile_aliases, execute_makefile_commands, \
-    PymakeKeyError, __author__
+    PymakeKeyError
 from ._version import __version__  # NOQA
 from docopt import docopt
 import sys
