@@ -2,15 +2,6 @@ import sys
 import subprocess
 import os
 from pymake import main, PymakeKeyError
-from copy import deepcopy
-
-
-# def test_subprocess()
-#     """Explicit alternative"""
-#     import subprocess
-#     subprocess.Popen("pymake",
-#                      stdout=subprocess.PIPE,
-#                      stderr=subprocess.STDOUT).communicate()[0].decode('utf-8')
 
 
 def _sh(*cmd, **kwargs):
@@ -41,10 +32,7 @@ def test_main():
     assert ("hello world" in res)
 
     # semi-fake test which gets coverage:
-    try:
-        _SYS = (deepcopy(sys.stdin), deepcopy(sys.argv))
-    except:
-        pass
+    _SYS = sys.stdin, sys.argv
 
     sys.argv = ['', '-f', fname]
     main()
@@ -69,7 +57,4 @@ def test_main():
             pass
 
     # clean up
-    try:
-        sys.stdin, sys.argv = _SYS
-    except:
-        pass
+    sys.stdin, sys.argv = _SYS

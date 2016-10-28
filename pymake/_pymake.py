@@ -118,7 +118,7 @@ def parse_makefile_aliases(filepath):
 def execute_makefile_commands(commands, alias, silent=False, just_print=False):
     """
     Execution Handler
-    
+
     Parameters
     ----------
     commands  : dict

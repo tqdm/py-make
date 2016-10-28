@@ -5,7 +5,7 @@ py-make
 
 |PyPI-Status| |PyPI-Versions|
 
-|Build-Status| |Coverage-Status| |Branch-Coverage-Status|
+|Build-Status| |Coverage-Status| |Branch-Coverage-Status| |Codacy-Grade|
 
 |LICENCE|
 
@@ -135,6 +135,8 @@ Authors
    :target: https://coveralls.io/r/tqdm/py-make
 .. |Branch-Coverage-Status| image:: https://codecov.io/github/tqdm/py-make/coverage.svg?branch=master
    :target: https://codecov.io/github/tqdm/py-make?branch=master
+.. |Codacy-Grade| image:: https://api.codacy.com/project/badge/Grade/3f965571598f44549c7818f29cdcf177
+   :target: https://www.codacy.com/app/tqdm/py-make?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tqdm/py-make&amp;utm_campaign=Badge_Grade
 .. |GitHub-Status| image:: https://img.shields.io/github/tag/tqdm/py-make.svg?maxAge=2592000
    :target: https://github.com/tqdm/py-make/releases
 .. |GitHub-Forks| image:: https://img.shields.io/github/forks/tqdm/py-make.svg

@@ -40,7 +40,7 @@ install:
   # if issues, clear cache
   # https://docs.travis-ci.com/user/caching/#Clearing-Caches
   # Coverage install
-  - pip install tox 'coverage<4' coveralls
+  - pip install tox 'coverage<4'
   # install this package (pymake) into the environment
   - python setup.py install
 
@@ -50,5 +50,4 @@ script:
 # submit coverage
 
 after_success:
-  - coveralls
   - codecov
