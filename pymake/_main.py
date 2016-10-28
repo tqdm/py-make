@@ -6,11 +6,10 @@ Options:
   -h, --help     Print this help and exit
   -v, --version  Print version and exit
   -s, --silent   Don't echo commands (quiet)
-  -p, --print-data-base
-                 Print internal database
-  -n, --just-print
-                 Don't actually run any commands; just print them
-                 (dry-run, recon)
+  -p, --print-data-base  Print internal database
+  -n, --just-print       Don't actually run any commands; just print them
+                         (dry-run, recon)
+  -i, --ignore-errors    Ignore errors from commands.
 Arguments:
   -f FILE, --file FILE
                  Read FILE as a makefile (makefile) [default: Makefile]
@@ -47,7 +46,8 @@ def main():
         if target in commands.keys():
             execute_makefile_commands(commands, target,
                                       silent=opts['--silent'],
-                                      just_print=opts['--just-print'])
+                                      just_print=opts['--just-print'],
+                                      ignore_errors=opts['--ignore-errors'])
         else:
             raise PymakeKeyError(sys.argv[0] +
                                  ": *** No rule to make target `" +

@@ -1,7 +1,8 @@
 # Definition of the version number
+from __future__ import absolute_import
 try:
     from ._utils import _sh
-except ImportError:  # pragma: no cover
+except:  # pragma: no cover
     _sh = None
 
 from subprocess import STDOUT

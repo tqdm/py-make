@@ -1,7 +1,7 @@
 import sys
 import subprocess
 import os
-from pymake import main, PymakeKeyError
+from pymake import main, PymakeKeyError, PymakeTypeError
 
 
 def _sh(*cmd, **kwargs):
@@ -37,6 +37,7 @@ def test_main():
     sys.argv = ['', '-f', fname]
     main()
 
+    """ Test invalid alias """
     sys.argv = ['', '-f', fname, 'foo']
     try:
         main()
@@ -46,9 +47,24 @@ def test_main():
     else:
         raise PymakeKeyError('foo')
 
-    sys.argv = ['', '-s', '-f', fname, 'hello']
+    """ Test --just-print with errors """
+    sys.argv = ['', '-s', '-n', '-f', fname, 'err']
     main()
 
+    """ Test --ignore-errors """
+    sys.argv = ['', '-s', '-f', fname, 'err']
+    try:
+        main()
+    except OSError as e:
+        if 'no such file' not in str(e).lower():
+            raise
+    else:
+        raise PymakeTypeError('err')
+
+    sys.argv = ['', '-s', '-i', '-f', fname, 'err']
+    main()
+
+    """ Test help and version """
     for i in ('-h', '--help', '-v', '--version'):
         sys.argv = ['', i]
         try:

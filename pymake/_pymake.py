@@ -115,7 +115,8 @@ def parse_makefile_aliases(filepath):
     return commands, aliases[0]
 
 
-def execute_makefile_commands(commands, alias, silent=False, just_print=False):
+def execute_makefile_commands(
+        commands, alias, silent=False, just_print=False, ignore_errors=False):
     """
     Execution Handler
 
@@ -124,10 +125,10 @@ def execute_makefile_commands(commands, alias, silent=False, just_print=False):
     commands  : dict
         Maps each alias to a list of commands.
     alias  : str
-    silent  : bool, optional
-        [default: False].
-    just_print  : bool, optional
-        [default: False].
+
+    Bool Options (default-false)
+    ----------------------------
+    silent, just_print, ignore_errors
     """
     cmds = commands[alias]
 
@@ -144,4 +145,8 @@ def execute_makefile_commands(commands, alias, silent=False, just_print=False):
             if not silent:
                 print(cmd)
             # Launch the command and wait to finish (synchronized call)
-            check_call(parsed_cmd)
+            try:
+                check_call(parsed_cmd)
+            except:
+                if not ignore_errors:
+                    raise
