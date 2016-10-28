@@ -42,8 +42,9 @@ def parse_makefile_aliases(filepath):
 
     Returns
     -------
-    alisases  : dict. Maps each alias to a list of commands.
-    default_alias  : str.
+    commands  : dict
+        Maps each alias to a list of commands.
+    default_alias  : str
     '''
 
     # -- Parsing the Makefile using ConfigParser
@@ -114,15 +115,33 @@ def parse_makefile_aliases(filepath):
     return commands, aliases[0]
 
 
-def execute_makefile_commands(commands, alias, verbose=False):
+def execute_makefile_commands(commands, alias, silent=False, just_print=False):
+    """
+    Execution Handler
+    
+    Parameters
+    ----------
+    commands  : dict
+        Maps each alias to a list of commands.
+    alias  : str
+    silent  : bool, optional
+        [default: False].
+    just_print  : bool, optional
+        [default: False].
+    """
     cmds = commands[alias]
+
+    if just_print:
+        print('\n'.join(cmds))
+        return
+
     for cmd in cmds:
         # Parse string in a shell-like fashion
         # (incl quoted strings and comments)
         parsed_cmd = shlex.split(cmd, comments=True)
         # Execute command if not empty (ie, not just a comment)
         if parsed_cmd:
-            if verbose:
+            if not silent:
                 print(cmd)
             # Launch the command and wait to finish (synchronized call)
             check_call(parsed_cmd)

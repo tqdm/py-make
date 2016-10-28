@@ -74,6 +74,9 @@ For compatibility, ensure:
 1. Every alias is preceded by @[+]make (eg: @make alias)
 2. A maximum of one @make alias or command per line
 
+A full list of what is and is not supported is on the
+`issue tracker <https://github.com/tqdm/py-make/issues/1>`__.
+
 Sample makefile compatible with ``pymake``:
 
 .. code:: sh
