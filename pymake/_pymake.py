@@ -11,7 +11,7 @@ import shlex
 
 
 __author__ = {"github.com/": ["casperdcl", "lrq3000"]}
-__all__ = ['PymakeTypeError', 'PymakeKeyError', 'PymakeDeprecationWarning',
+__all__ = ['PymakeTypeError', 'PymakeKeyError',
            'parse_makefile_aliases', 'execute_makefile_commands']
 
 
@@ -24,15 +24,6 @@ class PymakeTypeError(TypeError):
 
 class PymakeKeyError(KeyError):
     pass
-
-
-class PymakeDeprecationWarning(Exception):
-    # not suppressed if raised
-    def __init__(self, msg, fp_write=None, *a, **k):
-        if fp_write is not None:
-            fp_write("\nPymakeDeprecationWarning: " + str(msg).rstrip() + '\n')
-        else:
-            super(PymakeDeprecationWarning, self).__init__(msg, *a, **k)
 
 
 def parse_makefile_aliases(filepath):
