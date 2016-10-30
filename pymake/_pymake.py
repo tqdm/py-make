@@ -5,6 +5,7 @@ from __future__ import absolute_import
 # import compatibility functions and utilities
 from ._utils import ConfigParser, StringIO
 import io
+import os
 import re
 from subprocess import check_call
 import shlex
@@ -43,7 +44,7 @@ def parse_makefile_aliases(filepath):
     # -- Parsing the Makefile using ConfigParser
     # Adding a fake section to make the Makefile a valid Ini file
     ini_str = '[root]\n'
-    with io.open(filepath, mode='r') as fd:
+    with io.open(os.path.normpath(filepath), mode='r') as fd:
         ini_str = ini_str + RE_MAKE_CMD.sub('\t', fd.read())
 
     # Substitute macros
@@ -148,9 +149,15 @@ def execute_makefile_commands(
         return
 
     for cmd in cmds:
+        # Strip null bytes and carriage return
+        cmd = cmd.rstrip(' \t\r\n\0')
+        cmd = cmd.rstrip('\r\n\0')
         # Parse string in a shell-like fashion
         # (incl quoted strings and comments)
         parsed_cmd = shlex.split(cmd, comments=True)
+        # Fix unicode support in shlex of Py2.6...
+        parsed_cmd = [x.strip('\x00') for x in parsed_cmd]
+        print(parsed_cmd)
         # Execute command if not empty (ie, not just a comment)
         if parsed_cmd:
             if not silent:
@@ -158,6 +165,6 @@ def execute_makefile_commands(
             # Launch the command and wait to finish (synchronized call)
             try:
                 check_call(parsed_cmd)
-            except:
+            except Exception:
                 if not ignore_errors:
                     raise
