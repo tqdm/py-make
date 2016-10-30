@@ -49,7 +49,7 @@ def parse_makefile_aliases(filepath):
     # Substitute macros
     macros = dict(RE_MACRO_DEF.findall(ini_str))
     for _ in range(99):  # allow finite amount of nesting
-        for (m, expr) in macros.iteritems():
+        for (m, expr) in macros.items():
             remacros = re.compile(r"\$\(" + m + "\)", flags=re.M)
             ini_str = remacros.sub(expr, ini_str)
         if not RE_MACRO.match(ini_str):
