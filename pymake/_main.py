@@ -30,7 +30,7 @@ def main(argv=None):
     if argv is None: # if argv is empty, fetch from the commandline
         argv = sys.argv[1:]
     elif isinstance(argv, basestring): # else if it's a string, parse it
-        argv = shlex.split(argv)
+        argv = shlex.split(argv.encode('ascii'))
 
     # Parse arguments using docopt
     opts = docopt(__doc__, argv=argv, version=__version__)
