@@ -3,21 +3,19 @@ pymake helpers
 """
 from __future__ import absolute_import
 # import compatibility functions and utilities
-from ._utils import ConfigParser, StringIO
+from ._utils import ConfigParser, StringIO, shlex
 import io
 import re
 from subprocess import check_call
-import shlex
-
 
 __author__ = {"github.com/": ["casperdcl", "lrq3000"]}
 __all__ = ['PymakeTypeError', 'PymakeKeyError',
            'parse_makefile_aliases', 'execute_makefile_commands']
 
 
-RE_MAKE_CMD = re.compile('^\t(@\+?)(make)?', flags=re.M)
-RE_MACRO_DEF = re.compile(r"^(\S+)\s*\:?\=\s*(.*?)$", flags=re.M)
-RE_MACRO = re.compile(r"\$\(\s*\S+\s*\)", flags=re.M)
+RE_MAKE_CMD = re.compile('^\t(@\+?)(make)?')
+RE_MACRO_DEF = re.compile(r"^(\S+)\s*\:?\=\s*(.*?)$")
+RE_MACRO = re.compile(r"\$\(\s*\S+\s*\)")
 
 
 class PymakeTypeError(TypeError):
@@ -42,19 +40,22 @@ def parse_makefile_aliases(filepath):
 
     # -- Parsing the Makefile using ConfigParser
     # Adding a fake section to make the Makefile a valid Ini file
-    ini_str = '[root]\n'
+    ini_lines = ['[root]']
     with io.open(filepath, mode='r') as fd:
-        ini_str = ini_str + RE_MAKE_CMD.sub('\t', fd.read())
+        ini_lines.extend(RE_MAKE_CMD.sub('\t', i) for i in fd.readlines())
 
     # Substitute macros
-    macros = dict(RE_MACRO_DEF.findall(ini_str))
+    macros = dict(found for l in ini_lines
+                  for found in RE_MACRO_DEF.findall(l) if found)
+    ini_str = '\n'.join(ini_lines)
     # allow finite amount of nesting
     for _ in range(99):
         for (m, expr) in getattr(macros, 'iteritems', macros.items)():
-            ini_str = re.sub(r"\$\(" + m + "\)", expr, ini_str, flags=re.M)
-        if not RE_MACRO.match(ini_str):
+            ini_str = re.sub(r"\$\(" + m + "\)", expr, ini_str)
+        if not RE_MACRO.search(ini_str):
             # Strip macro definitions for rest of parsing
-            ini_str = RE_MACRO_DEF.sub("", ini_str)
+            ini_str = '\n'.join(l for l in ini_str.splitlines()
+                                if not RE_MACRO_DEF.search(l))
             break
     else:
         raise PymakeKeyError("No substitution for macros: " +
