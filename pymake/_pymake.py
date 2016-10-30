@@ -46,13 +46,14 @@ def parse_makefile_aliases(filepath):
     with io.open(filepath, mode='r') as fd:
         ini_str = ini_str + RE_MAKE_CMD.sub('\t', fd.read())
 
+    # Substitute macros
     macros = dict(RE_MACRO_DEF.findall(ini_str))
-    # allow finite amount of nesting
-    for _ in range(99):
+    for _ in range(99):  # allow finite amount of nesting
         for (m, expr) in macros.iteritems():
-            ini_str = re.sub(r"\$\(" + m + "\)", expr, ini_str, flags=re.M)
+            remacros = re.compile(r"\$\(" + m + "\)", flags=re.M)
+            ini_str = remacros.sub(expr, ini_str)
         if not RE_MACRO.match(ini_str):
-            # remove macro definitions from rest of parsing
+            # Remove macro definitions from rest of parsing
             ini_str = RE_MACRO_DEF.sub("", ini_str)
             break
     else:

@@ -10,7 +10,6 @@ Options:
   -n, --just-print       Don't actually run any commands; just print them
                          (dry-run, recon)
   -i, --ignore-errors    Ignore errors from commands.
-Arguments:
   -f FILE, --file FILE
                  Read FILE as a makefile (makefile) [default: Makefile]
 """
@@ -20,16 +19,23 @@ from ._pymake import parse_makefile_aliases, execute_makefile_commands, \
     PymakeKeyError
 from ._version import __version__  # NOQA
 from docopt import docopt
+import shlex
 import sys
 
 
 __all__ = ["main"]
 
 
-def main():
-    opts = docopt(__doc__, version=__version__)
-    # Filename of the makefile
-    fpath = opts['--file']
+def main(argv=None):
+    if argv is None: # if argv is empty, fetch from the commandline
+        argv = sys.argv[1:]
+    elif isinstance(argv, basestring): # else if it's a string, parse it
+        argv = shlex.split(argv)
+
+    # Parse arguments using docopt
+    opts = docopt(__doc__, argv=argv, version=__version__)
+    # Filename of the makefile (default: Makefile of current dir)
+    fpath = opts.get('--file', 'Makefile')
 
     # Parse the makefile, substitute the aliases and extract the commands
     commands, default_alias = parse_makefile_aliases(fpath)

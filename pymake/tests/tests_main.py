@@ -21,14 +21,13 @@ def test_main():
     """ Test execution """
 
     fname = os.path.join(os.path.abspath(repeat(os.path.dirname, 3, __file__)),
-                         "examples", "Makefile")
+                         "examples", "Makefile").replace('\\', '/')
     res = _sh(sys.executable, '-c',
               'from pymake import main; import sys; ' +
               'sys.argv = ["", "-f", "' + fname + '"]; main()',
               stderr=subprocess.STDOUT)
 
     # actual test:
-
     assert ("hello world" in res)
 
     # semi-fake test which gets coverage:
@@ -65,7 +64,7 @@ def test_main():
     try:
         main()
     except OSError as e:
-        if 'no such file' not in str(e).lower():
+        if 'error 2' not in str(e).lower():  # no such file error
             raise
     else:
         raise PymakeTypeError('err')
