@@ -9,10 +9,18 @@ Options:
   -p, --print-data-base  Print internal database
   -n, --just-print       Don't actually run any commands; just print them
                          (dry-run, recon)
-  -i, --ignore-errors    Ignore errors from commands.
-Arguments:
-  -f FILE, --file FILE
-                 Read FILE as a makefile (makefile) [default: Makefile]
+  -i, --ignore-errors    Ignore errors from commands
+  -D=<level>, --debug=<level>
+                 Print various types of debugging information. Choices:
+                         CRITICAL|FATAL
+                         ERROR
+                         WARN(ING)
+                         [default: INFO]
+                         DEBUG
+                         NOTSET
+  -d, --debug-trace      Print lots of debugging information (-D NOTSET)
+  -f=<file>, --file=<file>
+                 Read <file> as a (makefile) [default: Makefile]
 """
 from __future__ import absolute_import
 from __future__ import print_function
@@ -21,6 +29,7 @@ from ._pymake import parse_makefile_aliases, execute_makefile_commands, \
 from ._version import __version__  # NOQA
 from docopt import docopt
 import sys
+import logging as log
 
 
 __all__ = ["main"]
@@ -28,6 +37,11 @@ __all__ = ["main"]
 
 def main():
     opts = docopt(__doc__, version=__version__)
+    if opts.pop('--debug-trace', False):
+        opts['--debug'] = "NOTSET"
+    log.basicConfig(level=getattr(log, opts['--debug'], log.INFO),
+                    format='%(levelname)s: %(message)s')
+    log.debug(opts)
     # Filename of the makefile
     fpath = opts['--file']
 
