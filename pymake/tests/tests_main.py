@@ -63,7 +63,7 @@ def test_main():
     sys.argv = ['', '-s', '-f', fname, 'err']
     try:
         main()
-    except (OSError, WindowsError) as e:
+    except OSError as e:
         pass  # test passed if file not found
     else:
         raise PymakeTypeError('err')
