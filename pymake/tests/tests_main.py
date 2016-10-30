@@ -63,9 +63,8 @@ def test_main():
     sys.argv = ['', '-s', '-f', fname, 'err']
     try:
         main()
-    except OSError as e:
-        if 'error 2' not in str(e).lower():  # no such file error
-            raise
+    except (OSError, WindowsError) as e:
+        pass  # test passed if file not found
     else:
         raise PymakeTypeError('err')
 
