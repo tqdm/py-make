@@ -2,7 +2,7 @@ import re
 
 
 def test_version():
-    """ Test version string """
+    """Test version string"""
     from pymake import __version__
     Mmpe = re.split('[.-]', __version__)
     assert 3 <= len(Mmpe) <= 4

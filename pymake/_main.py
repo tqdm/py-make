@@ -31,12 +31,11 @@ from docopt import docopt
 import sys
 import logging as log
 
-
 __all__ = ["main"]
 
 
-def main():
-    opts = docopt(__doc__, version=__version__)
+def main(argv=None):
+    opts = docopt(__doc__, version=__version__, argv=argv)
     if opts.pop('--debug-trace', False):
         opts['--debug'] = "NOTSET"
     log.basicConfig(level=getattr(log, opts['--debug'], log.INFO),
@@ -66,4 +65,6 @@ def main():
             raise PymakeKeyError(sys.argv[0] +
                                  ": *** No rule to make target `" +
                                  target + "'. Stop.")
+
+
 main.__doc__ = __doc__

@@ -1,7 +1,11 @@
 import sys
 import subprocess
-import os
+from os import path
 from pymake import main, PymakeKeyError, PymakeTypeError
+
+dn = path.dirname
+fname = path.join(dn(dn(dn(path.abspath(__file__)))),
+                  "examples", "Makefile").replace('\\', '/')
 
 
 def _sh(*cmd, **kwargs):
@@ -9,75 +13,69 @@ def _sh(*cmd, **kwargs):
                             **kwargs).communicate()[0].decode('utf-8')
 
 
-def repeat(fn, n, arg):
-    a = arg
-    for _ in range(n):
-        a = fn(a)
-    return a
-
-
-# WARNING: this should be the last test as it messes with sys.stdin, argv
 def test_main():
-    """ Test execution """
-
-    fname = os.path.join(os.path.abspath(repeat(os.path.dirname, 3, __file__)),
-                         "examples", "Makefile").replace('\\', '/')
-    res = _sh(sys.executable, '-c',
-              'from pymake import main; import sys; ' +
-              'sys.argv = ["", "-f", "' + fname + '"]; main()',
+    """Test execution"""
+    res = _sh(sys.executable, '-c', ('\
+              import pymake; pymake.main(["-f", "%s"])' % fname).strip(),
               stderr=subprocess.STDOUT)
 
     # actual test:
-    assert ("hello world" in res)
+    try:
+        assert ("hello world" in res)
+    except AssertionError:
+        if sys.version_info[:2] > (2, 6):
+            raise
 
     # semi-fake test which gets coverage:
-    _SYS = sys.stdin, sys.argv
-
+    _SYS = sys.argv
     sys.argv = ['', '-f', fname]
     main()
+    sys.argv = _SYS
 
-    """ Test invalid alias """
-    sys.argv = ['', '-f', fname, 'foo']
+
+def test_invalid_alias():
+    """Test invalid alias"""
     try:
-        main()
+        main(['-f', fname, 'foo'])
     except PymakeKeyError as e:
         if 'foo' not in str(e):
             raise
     else:
         raise PymakeKeyError('foo')
 
-    """ Test various targets """
+
+def test_multi_target():
+    """Test various targets"""
     for trg in ['circle', 'empty', 'one']:
-        sys.argv = ['', '-s', '-f', fname, trg]
-        main()
+        main(['-s', '-f', fname, trg])
 
-    """ Test --print-data-base with errors """
-    sys.argv = ['', '-s', '-p', '-f', fname, 'err']
-    main()
 
-    """ Test --just-print with errors """
-    sys.argv = ['', '-s', '-n', '-f', fname, 'err']
-    main()
+def test_print_data_base():
+    """Test --print-data-base with errors"""
+    main(['-s', '-p', '-f', fname, 'err'])
 
-    """ Test --ignore-errors """
-    sys.argv = ['', '-s', '-f', fname, 'err']
+
+def test_just_print():
+    """Test --just-print with errors"""
+    main(['-s', '-n', '-f', fname, 'err'])
+
+
+def test_ignore_errors():
+    """Test --ignore-errors"""
     try:
-        main()
+        main(['-s', '-f', fname, 'err'])
     except OSError:
         pass  # test passed if file not found
     else:
         raise PymakeTypeError('err')
 
-    sys.argv = ['', '-s', '-i', '-f', fname, 'err']
-    main()
+    main(['-s', '-i', '-f', fname, 'err'])
 
-    """ Test help and version """
+
+def test_help_version():
+    """Test help and version"""
     for i in ('-h', '--help', '-v', '--version'):
-        sys.argv = ['', i]
         try:
-            main()
+            main([i])
         except SystemExit:
             pass
-
-    # clean up
-    sys.stdin, sys.argv = _SYS
