@@ -4,8 +4,9 @@ IPY=python -c
 	err
 
 hello:
-	# this is a comment
-	$(IPY) "print('hello world')"
+	# this is a comment followed by a multi-line command
+	$(IPY) \
+    "print('hello world')"
 
 err:
 	keyboardmashitalltogetherthisshouldnotrunotherwiseunittestswillfail
