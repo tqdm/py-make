@@ -35,66 +35,47 @@ def test_main():
 
 def test_invalid_alias():
     """Test invalid alias"""
-    _SYS = sys.argv
-    sys.argv = ['', '-f', fname, 'foo']
     try:
-        main()
+        main(['-f', fname, 'foo'])
     except PymakeKeyError as e:
         if 'foo' not in str(e):
             raise
     else:
         raise PymakeKeyError('foo')
-    sys.argv = _SYS
 
 
 def test_multi_target():
     """Test various targets"""
-    _SYS = sys.argv
     for trg in ['circle', 'empty', 'one']:
-        sys.argv = ['', '-s', '-f', fname, trg]
-        main()
-    sys.argv = _SYS
+        main(['-s', '-f', fname, trg])
 
 
 def test_print_data_base():
     """Test --print-data-base with errors"""
-    _SYS = sys.argv
-    sys.argv = ['', '-s', '-p', '-f', fname, 'err']
-    main()
-    sys.argv = _SYS
+    main(['-s', '-p', '-f', fname, 'err'])
 
 
 def test_just_print():
     """Test --just-print with errors"""
-    _SYS = sys.argv
-    sys.argv = ['', '-s', '-n', '-f', fname, 'err']
-    main()
-    sys.argv = _SYS
+    main(['-s', '-n', '-f', fname, 'err'])
 
 
 def test_ignore_errors():
     """Test --ignore-errors"""
-    _SYS = sys.argv
-    sys.argv = ['', '-s', '-f', fname, 'err']
     try:
-        main()
+        main(['-s', '-f', fname, 'err'])
     except OSError:
         pass  # test passed if file not found
     else:
         raise PymakeTypeError('err')
 
-    sys.argv = ['', '-s', '-i', '-f', fname, 'err']
-    main()
-    sys.argv = _SYS
+    main(['-s', '-i', '-f', fname, 'err'])
 
 
 def test_help_version():
     """Test help and version"""
-    _SYS = sys.argv
     for i in ('-h', '--help', '-v', '--version'):
-        sys.argv = ['', i]
         try:
-            main()
+            main([i])
         except SystemExit:
             pass
-    sys.argv = _SYS
