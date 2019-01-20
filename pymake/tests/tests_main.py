@@ -16,11 +16,8 @@ def _sh(*cmd, **kwargs):
 
 def test_main():
     """Test execution"""
-    res = _sh(sys.executable, '-c', dedent('''\
-              from pymake import main; import sys
-              sys.argv = ["", "-f", "''' + fname + '''"]
-              main()
-              '''),
+    res = _sh(sys.executable, '-c', dedent('\
+              import pymake; pymake.main(["-f", "%s"])' % fname),
               stderr=subprocess.STDOUT)
 
     # actual test:

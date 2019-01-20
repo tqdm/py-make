@@ -13,7 +13,7 @@ __all__ = ['PymakeTypeError', 'PymakeKeyError',
            'parse_makefile_aliases', 'execute_makefile_commands']
 
 
-RE_MAKE_CMD = re.compile('^\t(@\+?)(make)?')
+RE_MAKE_CMD = re.compile(r'^\t(@\+?)(make)?')
 RE_MACRO_DEF = re.compile(r"^(\S+)\s*\:?\=\s*(.*?)$")
 RE_MACRO = re.compile(r"\$\(\s*\S+\s*\)")
 
@@ -38,11 +38,11 @@ def parse_makefile_aliases(filepath):
     default_alias  : str
     '''
 
-    # -- Parsing the Makefile using ConfigParser
-    # Adding a fake section to make the Makefile a valid Ini file
-    ini_lines = ['[root]']
     with io.open(filepath, mode='r') as fd:
-        ini_lines.extend(RE_MAKE_CMD.sub('\t', i) for i in fd.readlines())
+        ini_lines = fd.read().replace('\r\n', '\n').replace('\\\n', '')
+        ini_lines = (RE_MAKE_CMD.sub('\t', i) for i in ini_lines.split('\n'))
+    # fake section to resemble valid *.ini
+    ini_lines = ['[root]'] + list(ini_lines)
 
     # Substitute macros
     macros = dict(found for l in ini_lines
@@ -51,7 +51,7 @@ def parse_makefile_aliases(filepath):
     # allow finite amount of nesting
     for _ in range(99):
         for (m, expr) in getattr(macros, 'iteritems', macros.items)():
-            ini_str = re.sub(r"\$\(" + m + "\)", expr, ini_str)
+            ini_str = re.sub(r"\$\(%s\)" % m, expr, ini_str)
         if not RE_MACRO.search(ini_str):
             # Strip macro definitions for rest of parsing
             ini_str = '\n'.join(l for l in ini_str.splitlines()
@@ -74,8 +74,7 @@ def parse_makefile_aliases(filepath):
             continue
         if not default_alias:
             default_alias = alias
-        commands[alias] = config.get('root', alias)\
-            .lstrip('\n').replace('\\\n', '').split('\n')
+        commands[alias] = config.get('root', alias).lstrip('\n').split('\n')
 
     # Command substitution (depth-first).
     # If this is not possible because an alias points to another alias,
