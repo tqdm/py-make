@@ -10,7 +10,8 @@
 #test:
 #	nosetest
 #install:
-#	python setup.py install
+#	python setup.py \
+#  install
 #```
 
 .PHONY:
@@ -26,15 +27,17 @@
 	coverclean
 	prebuildclean
 	clean
+	toxclean
 	installdev
 	install
 	build
-	pypimeta
+	buildupload
 	pypi
+	help
 	none
 
 help:
-	@python setup.py make
+	@python setup.py make -p
 
 alltests:
 	@+make testcoverage
@@ -46,10 +49,7 @@ all:
 	@+make build
 
 flake8:
-	@+flake8 --max-line-length=80 --count --statistics --exit-zero pymake/
-	@+flake8 --max-line-length=80 --count --statistics --exit-zero examples/
-	@+flake8 --max-line-length=80 --count --statistics --exit-zero .
-	@+flake8 --max-line-length=80 --count --statistics --exit-zero pymake/tests/
+	@+flake8 --max-line-length=80 --exclude .tox,build -j 8 --count --statistics --exit-zero .
 
 test:
 	tox --skip-missing-interpreters
@@ -78,10 +78,16 @@ prebuildclean:
 	@+python -c "import shutil; shutil.rmtree('pymake.egg-info', True)"
 coverclean:
 	@+python -c "import os; os.remove('.coverage') if os.path.exists('.coverage') else None"
+	@+python -c "import shutil; shutil.rmtree('pymake/__pycache__', True)"
+	@+python -c "import shutil; shutil.rmtree('pymake/tests/__pycache__', True)"
 clean:
-	@+python -c "import os; import glob; [os.remove(i) for i in glob.glob('*.py[co]')]"
-	@+python -c "import os; import glob; [os.remove(i) for i in glob.glob('pymake/*.py[co]')]"
-	@+python -c "import os; import glob; [os.remove(i) for i in glob.glob('pymake/tests/*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/tests/*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/examples/*.py[co]')]"
+toxclean:
+	@+python -c "import shutil; shutil.rmtree('.tox', True)"
+
 
 installdev:
 	python setup.py develop --uninstall
@@ -92,11 +98,8 @@ install:
 
 build:
 	@make prebuildclean
-	python setup.py sdist --formats=gztar,zip bdist_wheel
-	python setup.py bdist_wininst
-
-pypimeta:
-	python setup.py register
+	python setup.py sdist bdist_wheel
+	# python setup.py bdist_wininst
 
 pypi:
 	twine upload dist/*
@@ -104,7 +107,6 @@ pypi:
 buildupload:
 	@make testsetup
 	@make build
-	@make pypimeta
 	@make pypi
 
 none:
