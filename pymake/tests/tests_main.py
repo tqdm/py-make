@@ -1,6 +1,7 @@
 import sys
 import subprocess
-import os
+from os import path
+from textwrap import dedent
 from pymake import main, PymakeKeyError, PymakeTypeError
 
 
@@ -9,22 +10,17 @@ def _sh(*cmd, **kwargs):
                             **kwargs).communicate()[0].decode('utf-8')
 
 
-def repeat(fn, n, arg):
-    a = arg
-    for _ in range(n):
-        a = fn(a)
-    return a
-
-
 # WARNING: this should be the last test as it messes with sys.stdin, argv
 def test_main():
-    """ Test execution """
-
-    fname = os.path.join(os.path.abspath(repeat(os.path.dirname, 3, __file__)),
-                         "examples", "Makefile").replace('\\', '/')
-    res = _sh(sys.executable, '-c',
-              'from pymake import main; import sys; ' +
-              'sys.argv = ["", "-f", "' + fname + '"]; main()',
+    """Test execution"""
+    dn = path.dirname
+    fname = path.join(dn(dn(dn(path.abspath(__file__)))),
+                      "examples", "Makefile").replace('\\', '/')
+    res = _sh(sys.executable, '-c', dedent('''\
+              from pymake import main; import sys
+              sys.argv = ["", "-f", "''' + fname + '''"]
+              main()
+              '''),
               stderr=subprocess.STDOUT)
 
     # actual test:
@@ -36,7 +32,7 @@ def test_main():
     sys.argv = ['', '-f', fname]
     main()
 
-    """ Test invalid alias """
+    """Test invalid alias"""
     sys.argv = ['', '-f', fname, 'foo']
     try:
         main()
@@ -46,20 +42,20 @@ def test_main():
     else:
         raise PymakeKeyError('foo')
 
-    """ Test various targets """
+    """Test various targets"""
     for trg in ['circle', 'empty', 'one']:
         sys.argv = ['', '-s', '-f', fname, trg]
         main()
 
-    """ Test --print-data-base with errors """
+    """Test --print-data-base with errors"""
     sys.argv = ['', '-s', '-p', '-f', fname, 'err']
     main()
 
-    """ Test --just-print with errors """
+    """Test --just-print with errors"""
     sys.argv = ['', '-s', '-n', '-f', fname, 'err']
     main()
 
-    """ Test --ignore-errors """
+    """Test --ignore-errors"""
     sys.argv = ['', '-s', '-f', fname, 'err']
     try:
         main()
@@ -71,7 +67,7 @@ def test_main():
     sys.argv = ['', '-s', '-i', '-f', fname, 'err']
     main()
 
-    """ Test help and version """
+    """Test help and version"""
     for i in ('-h', '--help', '-v', '--version'):
         sys.argv = ['', i]
         try:
