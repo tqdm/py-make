@@ -1,6 +1,10 @@
 py-make
 =======
 
+.. image:: https://api.codacy.com/project/badge/Grade/1f1dab515f294a05af8fc45e200660e5
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/app/tqdm/py-make?utm_source=github.com&utm_medium=referral&utm_content=tqdm/py-make&utm_campaign=Badge_Grade_Dashboard
+
 |PyPI-Status| |PyPI-Versions|
 
 |Build-Status| |Coverage-Status| |Branch-Coverage-Status| |Codacy-Grade| |Libraries-Rank|
