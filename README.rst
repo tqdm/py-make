@@ -153,7 +153,7 @@ We are grateful for all |GitHub-Contributions|.
 .. |Branch-Coverage-Status| image:: https://codecov.io/gh/tqdm/py-make/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/tqdm/py-make
 .. |Codacy-Grade| image:: https://api.codacy.com/project/badge/Grade/1f1dab515f294a05af8fc45e200660e5
-   :target: https://www.codacy.com/app/tqdm/py-make
+   :target: https://www.codacy.com/app/tqdm/py-make/dashboard
 .. |GitHub-Status| image:: https://img.shields.io/github/tag/tqdm/py-make.svg?maxAge=86400&logo=github&logoColor=white
    :target: https://github.com/tqdm/py-make/releases
 .. |GitHub-Forks| image:: https://img.shields.io/github/forks/tqdm/py-make.svg?logo=github&logoColor=white
