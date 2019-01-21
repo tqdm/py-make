@@ -5,7 +5,7 @@ py-make
 
 |Build-Status| |Coverage-Status| |Branch-Coverage-Status| |Codacy-Grade| |Libraries-Rank|
 
-|DOI-URI| |LICENCE| |OpenHub-Status|
+|DOI-URI| |LICENCE| |OpenHub-Status| |Gift-Casper|
 
 
 Bring basic ``Makefile`` support to any system with Python.
@@ -152,8 +152,8 @@ We are grateful for all |GitHub-Contributions|.
    :target: https://coveralls.io/github/tqdm/py-make
 .. |Branch-Coverage-Status| image:: https://codecov.io/gh/tqdm/py-make/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/tqdm/py-make
-.. |Codacy-Grade| image:: https://api.codacy.com/project/badge/Grade/3f965571598f44549c7818f29cdcf177
-   :target: https://www.codacy.com/app/tqdm/py-make?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tqdm/py-make&amp;utm_campaign=Badge_Grade
+.. |Codacy-Grade| image:: https://api.codacy.com/project/badge/Grade/1f1dab515f294a05af8fc45e200660e5
+   :target: https://www.codacy.com/app/tqdm/py-make
 .. |GitHub-Status| image:: https://img.shields.io/github/tag/tqdm/py-make.svg?maxAge=86400&logo=github&logoColor=white
    :target: https://github.com/tqdm/py-make/releases
 .. |GitHub-Forks| image:: https://img.shields.io/github/forks/tqdm/py-make.svg?logo=github&logoColor=white
@@ -189,4 +189,4 @@ We are grateful for all |GitHub-Contributions|.
 .. |DOI-URI| image:: https://zenodo.org/badge/21637/tqdm/py-make.svg
    :target: https://zenodo.org/badge/latestdoi/21637/tqdm/py-make
 .. |README-Hits| image:: https://caspersci.uk.to/cgi-bin/hits.cgi?q=py-make&style=social&r=https://github.com/tqdm/py-make
-   :target: https://caspersci.uk.to/cgi-bin/hits.cgi?q=py-make&a=plot&r=https://github.com/tqdm/tqdm&style=social
+   :target: https://caspersci.uk.to/cgi-bin/hits.cgi?q=py-make&a=plot&r=https://github.com/tqdm/py-make&style=social
