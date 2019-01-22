@@ -186,7 +186,7 @@ We are grateful for all |GitHub-Contributions|.
    :target: https://www.openhub.net/p/py-make?ref=Thin+badge
 .. |LICENCE| image:: https://img.shields.io/pypi/l/py-make.svg
    :target: https://raw.githubusercontent.com/tqdm/py-make/master/LICENCE
-.. |DOI-URI| image:: https://zenodo.org/badge/21637/tqdm/py-make.svg
-   :target: https://zenodo.org/badge/latestdoi/21637/tqdm/py-make
+.. |DOI-URI| image:: https://img.shields.io/badge/DOI-10.5281/zenodo.2546871-blue.svg
+   :target: https://doi.org/10.5281/zenodo.2546871
 .. |README-Hits| image:: https://caspersci.uk.to/cgi-bin/hits.cgi?q=py-make&style=social&r=https://github.com/tqdm/py-make
    :target: https://caspersci.uk.to/cgi-bin/hits.cgi?q=py-make&a=plot&r=https://github.com/tqdm/py-make&style=social
