@@ -182,8 +182,8 @@ We are grateful for all |GitHub-Contributions|.
    :target: https://libraries.io/pypi/py-make
 .. |Libraries-Dependents| image:: https://img.shields.io/librariesio/dependent-repos/pypi/py-make.svg?logo=koding&logoColor=white
     :target: https://github.com/tqdm/py-make/network/dependents
-.. |OpenHub-Status| image:: https://www.openhub.net/p/py-make/widgets/project_thin_badge?format=gif
-   :target: https://www.openhub.net/p/py-make?ref=Thin+badge
+.. |OpenHub-Status| image:: https://www.openhub.net/p/tqdm_py-make/widgets/project_thin_badge?format=gif
+   :target: https://www.openhub.net/p/tqdm_py-make?ref=Thin+badge
 .. |LICENCE| image:: https://img.shields.io/pypi/l/py-make.svg
    :target: https://raw.githubusercontent.com/tqdm/py-make/master/LICENCE
 .. |DOI-URI| image:: https://img.shields.io/badge/DOI-10.5281/zenodo.2546871-blue.svg
