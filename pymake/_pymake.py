@@ -3,6 +3,7 @@ pymake helpers
 """
 from __future__ import absolute_import
 # import compatibility functions and utilities
+from six import raise_from
 from ._utils import ConfigParser, StringIO, shlex
 import io
 import re
@@ -109,6 +110,24 @@ def parse_makefile_aliases(filepath):
     return commands, default_alias
 
 
+class CmdExecutionError(Exception):
+    """
+    Exception raised when a command execution returned an error.
+
+    Instead of the cause being set as the python __cause__, it is hidden
+    and only the final message is displayed, together with the command.
+    """
+    __slots__ = 'cause', 'parsed_cmd'
+
+    def __init__(self, parsed_cmd, cause):
+        super(CmdExecutionError, self).__init__()
+        self.cause = cause
+        self.parsed_cmd = parsed_cmd
+
+    def __str__(self):
+        return "Error executing CMD '%s': %s" % (self.parsed_cmd, self.cause)
+
+
 def execute_makefile_commands(
         commands, alias, silent=False, just_print=False, ignore_errors=False):
     """
@@ -141,6 +160,8 @@ def execute_makefile_commands(
             # Launch the command and wait to finish (synchronized call)
             try:
                 check_call(parsed_cmd)
-            except:
+            except Exception as e:
+                # Raise a user-friendly exception
                 if not ignore_errors:
-                    raise
+                    raise_from(CmdExecutionError(' '.join(parsed_cmd), e),
+                               None)
