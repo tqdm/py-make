@@ -64,8 +64,8 @@ def test_ignore_errors():
     """Test --ignore-errors"""
     try:
         main(['-s', '-f', fname, 'err'])
-    except CmdExecutionError:
-        pass  # test passed if file not found
+    except CmdExecutionError as e:
+        assert "Error executing CMD" in str(e)  # test passed if file not found
     else:
         raise PymakeTypeError('err')
 
