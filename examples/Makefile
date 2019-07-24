@@ -18,6 +18,9 @@ circle:
 empty:
 	# head
 
+commented_var:
+    # this should not harm: $(dummy)
+
 one:
 	@make two
 
