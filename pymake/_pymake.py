@@ -16,7 +16,7 @@ __all__ = ['PymakeTypeError', 'PymakeKeyError',
 RE_MAKE_CMD = re.compile(r'^\t(@\+?)(make)?')
 RE_MACRO_DEF = re.compile(r"^(\S+)\s*\:?\=\s*(.*?)$")
 RE_MACRO = re.compile(r"\$\(\s*\S+\s*\)")
-RE_COMMENT = re.compile(r"#.*")
+RE_COMMENT = re.compile("#.*$")
 
 
 class PymakeTypeError(TypeError):

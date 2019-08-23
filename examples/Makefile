@@ -16,10 +16,7 @@ circle:
 	circle
 
 empty:
-	# head
-
-commented_var:
-    # this should not harm: $(dummy)
+	# head $(ignored_expansion)
 
 one:
 	@make two
