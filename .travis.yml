@@ -3,6 +3,7 @@ matrix:
   include:
   - python: 2.6
     env: TOXENV=py26
+    dist: trusty
   - python: 2.7
     env: TOXENV=py27
   - python: 3.4
@@ -12,9 +13,9 @@ matrix:
   - python: 3.6
     env: TOXENV=py36
   - python: 3.7
-    dist: xenial
-    sudo: true
     env: TOXENV=py37
+    dist: xenial
+    sudo: true  # required for py37, docker
   - python: pypy2.7-5.10.0
     env: TOXENV=pypy
   - python: pypy3.5-5.10.0
@@ -24,13 +25,13 @@ matrix:
 cache:
   pip: true
   directories:
-    - $HOME/.cache/pip
+  - $HOME/.cache/pip
 before_cache:
-  - rm -f $HOME/.cache/pip/log/debug.log
+- rm -f $HOME/.cache/pip/log/debug.log
 notifications:
   email: false
 install:
-  - pip install tox
-  - pip install .
+- pip install tox
+- pip install .
 script:
-  - tox
+- tox
