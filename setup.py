@@ -42,7 +42,7 @@ setup(
     maintainer_email='python.tqdm@gmail.com',
     platforms=['any'],
     packages=['pymake'],
-    install_requires=['docopt>=0.6.0', 'six'],
+    install_requires=['docopt>=0.6.0'],
     entry_points={'console_scripts': ['pymake=pymake._main:main'], },
     package_data={'py-make': ['CONTRIBUTE', 'LICENCE',
                               'examples/*.py', 'examples/Makefile*']},

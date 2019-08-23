@@ -3,8 +3,7 @@ pymake helpers
 """
 from __future__ import absolute_import
 # import compatibility functions and utilities
-from six import raise_from
-from ._utils import ConfigParser, StringIO, shlex
+from ._utils import ConfigParser, StringIO, shlex, raise_from
 import io
 import re
 from subprocess import check_call
@@ -114,8 +113,8 @@ class CmdExecutionError(Exception):
     """
     Exception raised when a command execution returned an error.
 
-    Instead of the cause being set as the python __cause__, it is hidden
-    and only the final message is displayed, together with the command.
+    The python __cause__ is hidden,
+    and only the command and final message is displayed.
     """
     __slots__ = 'cause', 'parsed_cmd'
 
@@ -161,7 +160,6 @@ def execute_makefile_commands(
             try:
                 check_call(parsed_cmd)
             except Exception as e:
-                # Raise a user-friendly exception
                 if not ignore_errors:
                     raise_from(CmdExecutionError(' '.join(parsed_cmd), e),
                                None)
