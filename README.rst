@@ -61,7 +61,7 @@ The list of all changes is available either on GitHub's Releases:
 Usage
 -----
 
-Simply install then execute ``pymake`` in a directory containing a ``Makefile``.
+Simply install then execute ``pymake -p`` to list commands and ``pymake <command>`` to use a command, in a directory containing a ``Makefile``.
 
 
 Known Issues
