@@ -39,8 +39,7 @@ all:
 	@+make build
 
 flake8:
-	@+flake8 --max-line-length=80 --exclude .tox,build \
-    -j 8 --count --statistics --exit-zero .
+	@+flake8 -j 8 --count --statistics --exit-zero .
 
 test:
 	tox --skip-missing-interpreters
@@ -49,7 +48,7 @@ testnose:
 	nosetests pymake -d -v
 
 testsetup:
-	python setup.py check --restructuredtext --strict
+	python setup.py check --metadata --restructuredtext --strict
 	python setup.py make none
 
 testcoverage:
@@ -89,6 +88,7 @@ install:
 
 build:
 	@make prebuildclean
+	@make testsetup
 	python setup.py sdist bdist_wheel
 	# python setup.py bdist_wininst
 
@@ -96,7 +96,6 @@ pypi:
 	twine upload dist/*
 
 buildupload:
-	@make testsetup
 	@make build
 	@make pypi
 
