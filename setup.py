@@ -35,7 +35,7 @@ setup(
     description='Makefile execution powered by pure Python',
     long_description=README_rst,
     license='MPLv2.0, MIT Licenses',
-    author='Casper da Costa-Luis',
+    author='Stephen Larroque, Casper da Costa-Luis',
     author_email='casper.dcl@physics.org',
     url='https://github.com/tqdm/pymake',
     maintainer='tqdm developers',
