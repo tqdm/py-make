@@ -5,7 +5,7 @@ py-make
 
 |Build-Status| |Coverage-Status| |Branch-Coverage-Status| |Codacy-Grade| |Libraries-Rank|
 
-|DOI-URI| |LICENCE| |OpenHub-Status| |Gift-Casper|
+|DOI-URI| |LICENCE| |OpenHub-Status|
 
 
 Bring basic ``Makefile`` support to any system with Python.
@@ -139,8 +139,8 @@ Authors
 The main developers, ranked by surviving lines of code
 (`git fame -wMC <https://github.com/casperdcl/git-fame>`__), are:
 
-- Casper da Costa-Luis (`casperdcl <https://github.com/casperdcl>`__, ~99.5%, |Gift-Casper|)
-- Stephen Larroque (`lrq3000 <https://github.com/lrq3000>`__, ~0.5%)
+- Stephen Larroque (`lrq3000 <https://github.com/lrq3000>`__, core logic)
+- Casper da Costa-Luis (`casperdcl <https://github.com/casperdcl>`__, modularization & maintenance)
 
 We are grateful for all |GitHub-Contributions|.
 
@@ -170,8 +170,6 @@ We are grateful for all |GitHub-Contributions|.
    :target: https://github.com/tqdm/py-make/graphs/contributors
 .. |GitHub-Updated| image:: https://img.shields.io/github/last-commit/tqdm/py-make/master.svg?logo=github&logoColor=white&label=pushed
    :target: https://github.com/tqdm/py-make/pulse
-.. |Gift-Casper| image:: https://img.shields.io/badge/gift-donate-ff69b4.svg
-   :target: https://caspersci.uk.to/donate.html
 .. |PyPI-Status| image:: https://img.shields.io/pypi/v/py-make.svg
    :target: https://pypi.org/project/py-make
 .. |PyPI-Downloads| image:: https://img.shields.io/pypi/dm/py-make.svg?label=pypi%20downloads&logo=python&logoColor=white
