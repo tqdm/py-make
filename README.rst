@@ -101,6 +101,7 @@ Sample makefile compatible with ``pymake``:
     empty:
     	# this is a comment
 
+If you get a "Permission Denied" error, please check if maybe your antivirus may be preventing the launch of compiled python scripts, if the Scripts subdirectory is in the PATH, or `other issues with the Python install <https://stackoverflow.com/questions/56974927/permission-denied-trying-to-run-python-on-windows-10>`__.
 
 Documentation
 -------------
