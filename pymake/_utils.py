@@ -20,6 +20,29 @@ if True:  # pragma: no cover
     except NameError:
         _unicode = str
 
+    try:
+        from six import raise_from
+    except ImportError:
+        if sys.version_info[:2] == (3, 2):
+            exec("""def raise_from(value, from_value):
+            try:
+                if from_value is None:
+                    raise value
+                raise value from from_value
+            finally:
+                value = None
+        """)
+        elif sys.version_info[:2] > (3, 2):
+            exec("""def raise_from(value, from_value):
+            try:
+                raise value from from_value
+            finally:
+                value = None
+        """)
+        else:
+            def raise_from(value, from_value):
+                raise value
+
 if sys.version_info >= (2, 7):  # pragma: no cover
     import shlex
 else:  # pragma: no cover
