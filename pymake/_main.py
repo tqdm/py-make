@@ -49,7 +49,7 @@ def main(argv=None):
 
     if opts['--print-data-base']:
         print("List of detected aliases:")
-        print('\n'.join(alias for alias in sorted(commands.keys())))
+        print('\n'.join(sorted(commands.keys())))
         return
 
     if not opts['<target>']:

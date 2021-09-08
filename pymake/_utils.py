@@ -2,23 +2,22 @@ import sys
 
 __all__ = ["ConfigParser", "StringIO", "_sh", "shlex"]
 
-if True:  # pragma: no cover
-    try:
-        import ConfigParser
-        import StringIO
-    except ImportError:
-        import configparser as ConfigParser
-        import io as StringIO
+try:
+    import ConfigParser
+    import StringIO
+except ImportError:
+    import configparser as ConfigParser
+    import io as StringIO
 
-    try:
-        _unich = unichr
-    except NameError:
-        _unich = chr
+try:
+    _unich = unichr
+except NameError:
+    _unich = chr
 
-    try:
-        _unicode = unicode
-    except NameError:
-        _unicode = str
+try:
+    _unicode = unicode
+except NameError:
+    _unicode = str
 
 if sys.version_info >= (2, 7):  # pragma: no cover
     import shlex
