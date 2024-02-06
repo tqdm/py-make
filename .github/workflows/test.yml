@@ -89,7 +89,7 @@ jobs:
     - uses: actions/setup-python@v5
       with: {python-version: '3.x'}
     - id: dist
-      uses: casperdcl/deploy-pypi@v2
+      uses: casperdcl/deploy-pypi@trusted-pub
       with:
         build: true
         upload: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags') }}
