@@ -1,11 +1,9 @@
 import sys
 import subprocess
-from os import path
+from pathlib import Path
 from pymake import main, PymakeKeyError, PymakeTypeError
 
-dn = path.dirname
-fname = path.join(dn(dn(dn(path.abspath(__file__)))),
-                  "examples", "Makefile").replace('\\', '/')
+fname = str(Path(__file__).parent.parent.resolve() / "examples" / "Makefile")
 
 
 def _sh(*cmd, **kwargs):

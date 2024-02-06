@@ -26,7 +26,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 from ._pymake import parse_makefile_aliases, execute_makefile_commands, \
     PymakeKeyError
-from ._version import __version__  # NOQA
+from .version import __version__
 from docopt import docopt
 import sys
 import logging as log

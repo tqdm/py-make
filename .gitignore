@@ -1,26 +1,15 @@
 *.py[cod]
-
-# C extensions
 *.so
+__pycache__/
 
 # Packages
-*.egg-info
-build/
-dist/
+/pymake/_dist_ver.py
+/*.egg*/
+/build/
+/dist/
 
 # Unit test / coverage reports
-.tox/
-.coverage
-__pycache__
-nosetests.xml
-
-# Translations
-*.mo
-
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
-
-# PyCharm
-.idea
+/.tox/
+/.coverage*
+/coverage.xml
+/.pytest_cache/
