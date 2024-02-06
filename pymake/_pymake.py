@@ -61,9 +61,8 @@ def parse_makefile_aliases(filepath):
         raise PymakeKeyError("No substitution for macros: " +
                              str(set(RE_MACRO.findall(ini_str))))
 
-    ini_fp = StringIO.StringIO(ini_str)
     config = ConfigParser.RawConfigParser()
-    config.readfp(ini_fp)
+    config.read_string(ini_str)
     aliases = config.options('root')
 
     # Extract commands for each alias
