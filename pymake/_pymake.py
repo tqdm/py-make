@@ -2,10 +2,10 @@
 pymake helpers
 """
 from __future__ import absolute_import
-# import compatibility functions and utilities
-from ._utils import ConfigParser, StringIO, shlex
+import configparser
 import io
 import re
+import shlex
 from subprocess import check_call
 
 __author__ = {"github.com/": ["casperdcl", "lrq3000"]}
@@ -61,7 +61,7 @@ def parse_makefile_aliases(filepath):
         raise PymakeKeyError("No substitution for macros: " +
                              str(set(RE_MACRO.findall(ini_str))))
 
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     config.read_string(ini_str)
     aliases = config.options('root')
 

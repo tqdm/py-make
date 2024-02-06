@@ -18,11 +18,7 @@ def test_main():
               stderr=subprocess.STDOUT)
 
     # actual test:
-    try:
-        assert ("hello world" in res)
-    except AssertionError:
-        if sys.version_info[:2] > (2, 6):
-            raise
+    assert "hello world" in res
 
     # semi-fake test which gets coverage:
     _SYS = sys.argv
