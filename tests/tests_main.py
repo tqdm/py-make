@@ -3,7 +3,8 @@ import subprocess
 from pathlib import Path
 from pymake import main, PymakeKeyError, PymakeTypeError
 
-fname = str(Path(__file__).parent.parent.resolve() / "examples" / "Makefile")
+fname = Path(__file__).parent.parent.resolve() / 'examples' / 'Makefile'
+fname = str(fname).replace("\\", "\\\\")
 
 
 def _sh(*cmd, **kwargs):
@@ -13,8 +14,7 @@ def _sh(*cmd, **kwargs):
 
 def test_main():
     """Test execution"""
-    res = _sh(sys.executable, '-c', ('\
-              import pymake; pymake.main(["-f", "%s"])' % fname).strip(),
+    res = _sh(sys.executable, '-c', f'import pymake; pymake.main(["-f", "{fname}"])',
               stderr=subprocess.STDOUT)
 
     # actual test:
