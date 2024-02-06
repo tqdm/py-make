@@ -11,7 +11,7 @@ Makefile:
 
 ```
 make [<alias>]  # on UNIX-like environments
-python setup.py make [<alias>]  # if make is unavailable
+python -m pymake [<alias>]  # if make is unavailable
 ```
 
 Use the alias `help` (or leave blank) to list all available aliases.
@@ -50,7 +50,7 @@ The standard way to run the tests:
 - run the following command:
 
 ```
-[python setup.py] make test
+[python -m py]make test
 # or:
 tox --skip-missing-interpreters
 ```
@@ -71,11 +71,11 @@ Alternative unit tests with PyTest
 
 Alternatively, use `pytest` to run the tests just for the current Python version:
 
-- install `pytest` and `flake8`
+- install `pytest`, `flake8` and `flake8-pyproject`
 - run the following command:
 
 ```
-[python setup.py] make alltests
+[python -m py]make alltests
 ```
 
 
@@ -85,7 +85,7 @@ MANAGE A NEW RELEASE
 
 This section is intended for the project's maintainers and describes
 how to build and upload a new release. Once again,
-`[python setup.py] make [<alias>]` will help.
+`[python -m py]make [<alias>]` will help.
 
 
 SEMANTIC VERSIONING
@@ -104,21 +104,21 @@ Note: tools can be used to automate this process, such as
 [python-semanticversion](https://github.com/rbarrois/python-semanticversion/).
 
 
-CHECKING SETUP.PY
------------------
+CHECKING SETUP
+--------------
 
-To check that the `setup.py` file is compliant with PyPi requirements (e.g.
+To check that the setup is compliant with PyPi requirements (e.g.
 version number; reStructuredText in README.rst) use:
 
 ```
-[python setup.py] make testsetup
+[python -m py]make testsetup
 ```
 
 To upload just metadata (including overwriting mistakenly uploaded metadata)
 to PyPi, use:
 
 ```
-[python setup.py] make pypimeta
+[python -m py]make pypimeta
 ```
 
 
@@ -172,7 +172,7 @@ git merge --no-ff pr-branch-name
 ~~~~~~
 
 ```
-[python setup.py] make alltests
+[python -m py]make alltests
 ```
 
 5 Version
@@ -202,9 +202,8 @@ Test
 ~~~~
 
 - ensure that all online CI tests have passed
-- check `setup.py` and `MANIFEST.in` - which define the packaging
-process and info that will be uploaded to [pypi](pypi.python.org) -
-using `[python setup.py] make installdev`
+- check setup - which define the packaging process and info that will be uploaded to [pypi](pypi.python.org) -
+using `[python -m py]make install_dev`
 
 Tag
 ~~~
@@ -221,7 +220,7 @@ Upload
 Build pymake into a distributable python package:
 
 ```
-[python setup.py] make build
+[python -m py]make build
 ```
 
 This will generate several builds in the `dist/` folder. On non-windows
@@ -231,12 +230,12 @@ Finally, upload everything to pypi. This can be done easily using the
 [twine](https://github.com/pypa/twine) module:
 
 ```
-[python setup.py] make pypi
+[python -m py]make pypi
 ```
 
 Also, the new release can (should) be added to `github` by creating a new
 release from the web interface; uploading packages from the `dist/` folder
-created by `[python setup.py] make build`.
+created by `[python -m py]make build`.
 
 Notes
 ~~~~~
@@ -246,7 +245,7 @@ before the real deployment
 - in case of a mistake, you can delete an uploaded release on pypi, but you
 cannot re-upload another with the same version number
 - in case of a mistake in the metadata on pypi (e.g. bad README),
-updating just the metadata is possible: `[python setup.py] make pypimeta`
+updating just the metadata is possible: `[python -m py]make pypimeta`
 
 
 QUICK DEV SUMMARY
@@ -255,12 +254,12 @@ QUICK DEV SUMMARY
 For expereinced devs, once happy with local master:
 
 1. bump version in `pymake/_version.py`
-2. test (`[python setup.py] make alltests`)
+2. test (`[python -m py]make alltests`)
 3. `git commit [--amend]  # -m "bump version"`
 4. `git push`
 5. wait for tests to pass
     a) in case of failure, fix and go back to (2)
 6. `git tag vM.m.p && git push --tags`
-7. `[python setup.py] make distclean`
-8. `[python setup.py] make build`
-9. `[python setup.py] make pypi`
+7. `[python -m py]make distclean`
+8. `[python -m py]make build`
+9. `[python -m py]make pypi`

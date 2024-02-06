@@ -91,8 +91,7 @@ Sample makefile compatible with ``pymake``:
     test:
     	pytest
     install:
-    	python setup.py\
-        install
+    	python -m pip install
     compile:
     	$(PY) test.py
     circle:

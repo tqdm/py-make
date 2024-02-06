@@ -1,4 +1,4 @@
-# IMPORTANT: for compatibility with `python setup.py make [alias]`, ensure:
+# IMPORTANT: for compatibility with `python -m pymake [alias]`, ensure:
 # 1. Every alias is preceded by @[+]make (eg: @make alias)
 # 2. A maximum of one @make alias or command per line
 # see: https://github.com/tqdm/py-make/issues/1
@@ -27,7 +27,7 @@
 	run
 
 help:
-	@python setup.py make -p
+	@python -m pymake -p
 
 alltests:
 	@+make testcoverage
