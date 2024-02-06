@@ -2,10 +2,10 @@
 pymake helpers
 """
 from __future__ import absolute_import
-# import compatibility functions and utilities
-from ._utils import ConfigParser, StringIO, shlex
+import configparser
 import io
 import re
+import shlex
 from subprocess import check_call
 
 __author__ = {"github.com/": ["casperdcl", "lrq3000"]}
@@ -45,8 +45,8 @@ def parse_makefile_aliases(filepath):
     ini_lines = ['[root]'] + list(ini_lines)
 
     # Substitute macros
-    macros = dict(found for l in ini_lines
-                  for found in RE_MACRO_DEF.findall(l) if found)
+    macros = dict(found for line in ini_lines
+                  for found in RE_MACRO_DEF.findall(line) if found)
     ini_str = '\n'.join(ini_lines)
     # allow finite amount of nesting
     for _ in range(99):
@@ -54,16 +54,15 @@ def parse_makefile_aliases(filepath):
             ini_str = re.sub(r"\$\(%s\)" % m, expr, ini_str)
         if not RE_MACRO.search(ini_str):
             # Strip macro definitions for rest of parsing
-            ini_str = '\n'.join(l for l in ini_str.splitlines()
-                                if not RE_MACRO_DEF.search(l))
+            ini_str = '\n'.join(line for line in ini_str.splitlines()
+                                if not RE_MACRO_DEF.search(line))
             break
     else:
         raise PymakeKeyError("No substitution for macros: " +
                              str(set(RE_MACRO.findall(ini_str))))
 
-    ini_fp = StringIO.StringIO(ini_str)
-    config = ConfigParser.RawConfigParser()
-    config.readfp(ini_fp)
+    config = configparser.RawConfigParser()
+    config.read_string(ini_str)
     aliases = config.options('root')
 
     # Extract commands for each alias
@@ -141,6 +140,6 @@ def execute_makefile_commands(
             # Launch the command and wait to finish (synchronized call)
             try:
                 check_call(parsed_cmd)
-            except:
+            except Exception:
                 if not ignore_errors:
                     raise

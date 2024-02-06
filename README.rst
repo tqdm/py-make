@@ -89,10 +89,9 @@ Sample makefile compatible with ``pymake``:
     	@+make test
     	@make install
     test:
-    	nosetest
+    	pytest
     install:
-    	python setup.py\
-        install
+    	python -m pip install
     compile:
     	$(PY) test.py
     circle:
@@ -122,7 +121,7 @@ All source code is hosted on `GitHub <https://github.com/tqdm/py-make>`__.
 Contributions are welcome.
 
 See the
-`CONTRIBUTE <https://raw.githubusercontent.com/tqdm/py-make/master/CONTRIBUTE>`__
+`CONTRIBUTING.md <https://raw.githubusercontent.com/tqdm/py-make/master/CONTRIBUTING.md>`__
 file for more information.
 
 
@@ -147,8 +146,8 @@ We are grateful for all |GitHub-Contributions|.
 
 |README-Hits| (Since 28 Oct 2016)
 
-.. |Build-Status| image:: https://img.shields.io/travis/tqdm/py-make/master.svg?logo=travis
-   :target: https://travis-ci.org/tqdm/py-make
+.. |Build-Status| image:: https://img.shields.io/github/actions/workflow/status/tqdm/py-make/test.yml?branch=master&label=py-make&logo=GitHub
+   :target: https://github.com/tqdm/py-make/actions/workflows/test.yml
 .. |Coverage-Status| image:: https://coveralls.io/repos/tqdm/py-make/badge.svg?branch=master
    :target: https://coveralls.io/github/tqdm/py-make
 .. |Branch-Coverage-Status| image:: https://codecov.io/gh/tqdm/py-make/branch/master/graph/badge.svg

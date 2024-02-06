@@ -1,11 +1,10 @@
 import sys
 import subprocess
-from os import path
+from pathlib import Path
 from pymake import main, PymakeKeyError, PymakeTypeError
 
-dn = path.dirname
-fname = path.join(dn(dn(dn(path.abspath(__file__)))),
-                  "examples", "Makefile").replace('\\', '/')
+fname = Path(__file__).parent.parent.resolve() / 'examples' / 'Makefile'
+fname = str(fname).replace("\\", "\\\\")
 
 
 def _sh(*cmd, **kwargs):
@@ -15,16 +14,11 @@ def _sh(*cmd, **kwargs):
 
 def test_main():
     """Test execution"""
-    res = _sh(sys.executable, '-c', ('\
-              import pymake; pymake.main(["-f", "%s"])' % fname).strip(),
+    res = _sh(sys.executable, '-c', f'import pymake; pymake.main(["-f", "{fname}"])',
               stderr=subprocess.STDOUT)
 
     # actual test:
-    try:
-        assert ("hello world" in res)
-    except AssertionError:
-        if sys.version_info[:2] > (2, 6):
-            raise
+    assert "hello world" in res
 
     # semi-fake test which gets coverage:
     _SYS = sys.argv

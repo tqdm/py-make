@@ -1,4 +1,4 @@
-# IMPORTANT: for compatibility with `python setup.py make [alias]`, ensure:
+# IMPORTANT: for compatibility with `python -m pymake [alias]`, ensure:
 # 1. Every alias is preceded by @[+]make (eg: @make alias)
 # 2. A maximum of one @make alias or command per line
 # see: https://github.com/tqdm/py-make/issues/1
@@ -8,7 +8,7 @@
 	all
 	flake8
 	test
-	testnose
+	pytest
 	testsetup
 	testcoverage
 	testtimer
@@ -17,7 +17,7 @@
 	prebuildclean
 	clean
 	toxclean
-	installdev
+	install_dev
 	install
 	build
 	buildupload
@@ -27,7 +27,7 @@
 	run
 
 help:
-	@python setup.py make -p
+	@python -m pymake -p
 
 alltests:
 	@+make testcoverage
@@ -44,19 +44,18 @@ flake8:
 test:
 	tox --skip-missing-interpreters
 
-testnose:
-	nosetests pymake -d -v
+pytest:
+	pytest
 
 testsetup:
-	python setup.py check --metadata --restructuredtext --strict
-	python setup.py make none
+	@make help
 
 testcoverage:
 	@make coverclean
-	nosetests pymake --with-coverage --cover-package=pymake --cover-erase --cover-min-percentage=80 -d -v
+	pytest --cov=pymake --cov-report=xml --cov-report=term --cov-fail-under=80
 
 testtimer:
-	nosetests pymake --with-timer -d -v
+	pytest
 
 distclean:
 	@+make coverclean
@@ -66,34 +65,35 @@ prebuildclean:
 	@+python -c "import shutil; shutil.rmtree('build', True)"
 	@+python -c "import shutil; shutil.rmtree('dist', True)"
 	@+python -c "import shutil; shutil.rmtree('pymake.egg-info', True)"
+	@+python -c "import shutil; shutil.rmtree('.eggs', True)"
 coverclean:
 	@+python -c "import os; os.remove('.coverage') if os.path.exists('.coverage') else None"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('.coverage.*')]"
+	@+python -c "import shutil; shutil.rmtree('tests/__pycache__', True)"
 	@+python -c "import shutil; shutil.rmtree('pymake/__pycache__', True)"
-	@+python -c "import shutil; shutil.rmtree('pymake/tests/__pycache__', True)"
+	@+python -c "import shutil; shutil.rmtree('examples/__pycache__', True)"
 clean:
 	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('tests/*.py[co]')]"
 	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/*.py[co]')]"
-	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/tests/*.py[co]')]"
-	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('pymake/examples/*.py[co]')]"
+	@+python -c "import os, glob; [os.remove(i) for i in glob.glob('examples/*.py[co]')]"
 toxclean:
 	@+python -c "import shutil; shutil.rmtree('.tox', True)"
 
 
-installdev:
-	python setup.py develop --uninstall
-	python setup.py develop
-
 install:
-	python setup.py install
+	python -m pip install .
+install_dev:
+	python -m pip install -e .
 
 build:
 	@make prebuildclean
 	@make testsetup
-	python setup.py sdist bdist_wheel
-	# python setup.py bdist_wininst
+	python -m build
+	python -m twine check dist/*
 
 pypi:
-	twine upload dist/*
+	python -m twine upload dist/*
 
 buildupload:
 	@make build
